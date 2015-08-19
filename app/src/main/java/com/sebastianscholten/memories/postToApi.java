@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -29,6 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class postToApi extends AsyncTask {
+
+    //TextView btnRemember = (TextView) ((NewMemory)context).findViewById(R.id.btnRemember);
 
     private static Context context;
     private HashMap<String, String> fields;
@@ -69,7 +72,7 @@ public class postToApi extends AsyncTask {
             // Add image to http post
             //entityBuilder.addBinaryBody("image", image);
             //entityBuilder.addPart("image",photo);
-            entityBuilder.addPart("image",photo);
+            entityBuilder.addPart("image", photo);
 
             HttpEntity entity = entityBuilder.build();
             post.setEntity(entity);
@@ -89,5 +92,12 @@ public class postToApi extends AsyncTask {
         super.onPostExecute(o);
         Log.i("HTTP_POST","Upload done");
         Toast.makeText(context,"Upload done",Toast.LENGTH_LONG).show();
+        //btnRemember.setText("REMEMBERED");
+    }
+
+    @Override
+    protected void onProgressUpdate(Object[] values) {
+        super.onProgressUpdate(values);
+        //btnRemember.setText("REMEMBERING: " + (Integer) (values[0]) * 2 + "%");
     }
 }

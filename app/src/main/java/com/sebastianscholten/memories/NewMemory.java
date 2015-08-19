@@ -16,9 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,22 +26,22 @@ public class NewMemory extends ActionBarActivity {
 
     public File image = null;
     public File photoFile = null;
-    public ImageView imageView;
+    public ImageView memoryImageView;
     static final int REQUEST_TAKE_PHOTO = 10;
     String mCurrentPhotoPath;
+    Helper helper = new Helper();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_memory);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        memoryImageView = (ImageView) findViewById(R.id.memoryImage);
     }
 
     public void launchCamera(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
         if (intent.resolveActivity(getPackageManager()) != null) {
-            //File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException e) {
@@ -58,7 +56,7 @@ public class NewMemory extends ActionBarActivity {
     }
 
     public void rememberMemory(View view) throws Exception {
-        if (image != null) {
+        if (photoFile != null) {
             HashMap<String, String> tempFields = new HashMap<>();
             tempFields.put("name","sebastian");
             tempFields.put("surname","scholten");
@@ -67,20 +65,23 @@ public class NewMemory extends ActionBarActivity {
         }
     }
 
-    public void showImage(View view) throws FileNotFoundException {
-        Bitmap bitmap = BitmapFactory.decodeFile(image.getPath());
-        imageView.setImageBitmap(bitmap);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 10) {
             if (resultCode == RESULT_OK) {
-                image = new File(mCurrentPhotoPath);
-                Toast.makeText(this,"Image saved: "+image.getAbsolutePath(),Toast.LENGTH_LONG).show();
-                //imageView.setImageURI(Uri.parse(mCurrentPhotoPath));
-                //imageView.setImageBitmap(BitmapFactory.decodeFile(photoFile.getAbsolutePath()));
-                imageView.setImageURI(Uri.fromFile(photoFile));
+
+                //Toast.makeText(this,"Image saved: "+photoFile.getAbsolutePath(),Toast.LENGTH_LONG).show();
+                Bitmap bm = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                ExifInterface exif = null;
+                try {
+                    exif = new ExifInterface(photoFile.getAbsolutePath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+                memoryImageView.setImageBitmap(helper.rotateBitmap(bm, orientation));
+
             }
         }
     }
@@ -124,4 +125,5 @@ public class NewMemory extends ActionBarActivity {
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
+
 }
