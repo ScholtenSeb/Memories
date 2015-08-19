@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.sebastianscholten.memories.ViewMemory"
+    android:padding="0dp"
+    android:background="#fff">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:id="@+id/memoryImgView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="#ccc"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/memoryTitleView"
+        android:hint="@string/sampleMemoryTitle"
+        android:textColor="#333"
+        android:textColorHint="#333"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textIsSelectable="false"
+        android:singleLine="true"
+        android:enabled="true"
+        android:background="#00000000"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/memoryImgView"
+        android:layout_centerHorizontal="true"
+        android:editable="false" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="220dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/memoryTextView"
+        android:background="#00000000"
+        android:enabled="true"
+        android:hint="Memory is the process in which information is encoded, stored, and retrieved. Encoding allows information from the outside world to be sensed in the form of chemical and physical stimuli. In this first stage the information must be changed so that it may be put into the encoding process. Storage is the second memory stage or process. This entails that information is maintained over periods of time. Finally the third process is the retrieval of information that has been stored."
+        android:textColor="#666"
+        android:textColorHint="#666"
+        android:textSize="14sp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:gravity="center_horizontal|top"
+        android:paddingBottom="50dp"
+        android:layout_below="@+id/memoryTitleView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:editable="false" />
+
+</RelativeLayout>

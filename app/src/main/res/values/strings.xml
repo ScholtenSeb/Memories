@@ -8,4 +8,5 @@
     <string name="takePhoto">Take photo</string>
     <string name="sampleImage">sampleimage</string>
     <string name="remember">Remember</string>
+    <string name="title_activity_view_memory">ViewMemory</string>
 </resources>
